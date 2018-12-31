@@ -1,8 +1,23 @@
 package findbookproject.k.findbook.data;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class ResponseBooks {
 
-   public List<Book> books;
+   public List<Items> getItems() {
+      return items;
+   }
+
+   public void setItems(List<Items> items) {
+      this.items = items;
+   }
+
+   @SerializedName("items")
+   @Expose
+   private List<Items> items = null;
+
+
 }
