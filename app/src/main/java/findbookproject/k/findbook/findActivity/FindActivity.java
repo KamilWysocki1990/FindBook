@@ -3,6 +3,9 @@ package findbookproject.k.findbook.findActivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -10,22 +13,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import butterknife.BindAnim;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import findbookproject.k.findbook.FindBookApplication;
 import findbookproject.k.findbook.R;
+import findbookproject.k.findbook.data.Items;
 import findbookproject.k.findbook.findActivity.di.FindActivityModule;
-import findbookproject.k.findbook.network.Api;
 
 public class FindActivity extends AppCompatActivity implements FindActivityContract.View {
 
     @Inject
     FindActivityContract.Presenter presenter;
 
+    @BindView(R.id.book_recycler)
+    RecyclerView bookRecycler;
 
     @BindView(R.id.searchEditText)
     EditText searchEditText;
@@ -35,6 +41,9 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
 
     @BindView (R.id.search_button)
     Button searchButton;
+
+    private FindAdapter adapter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +55,16 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
                 .plus(new FindActivityModule(this))
                 .inject(this);
 
+        adapter = new FindAdapter();
+        bookRecycler.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        bookRecycler.addItemDecoration(itemDecoration);
+        bookRecycler.setHasFixedSize(true);
+        bookRecycler.setAdapter(adapter);
+
+
+
     }
 
     @OnClick(R.id.search_button)
@@ -53,6 +72,7 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
        final Animation animButton = AnimationUtils.loadAnimation(this,R.anim.bounce);
         searchButton.startAnimation(animButton);
         presenter.searchForTextOrBook(searchEditText.getText().toString());
+
     }
 
 
@@ -62,7 +82,14 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
     }
 
     @Override
-    public void showHowManyAnserwsWasFound(String numberOfAnserws) {
-        textView.setText(numberOfAnserws);
+    public void showHowManyAnswersWasFound(String numberOfAnswers) {
+        textView.setText(numberOfAnswers);
+    }
+
+    @Override
+    public void setRecycler(List<Items> items) {
+
+
+        adapter.updateBooks(items);
     }
 }

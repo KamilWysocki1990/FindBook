@@ -1,12 +1,15 @@
 package findbookproject.k.findbook.findActivity;
 
-import findbookproject.k.findbook.data.ResponseBooks;
+import java.util.List;
+
+import findbookproject.k.findbook.data.Items;
 
 public interface FindActivityContract {
 
     interface View{
          void showTextAfterEditTextSearchIsEmpty();
-         void showHowManyAnserwsWasFound(String numberOfAnserws);
+         void showHowManyAnswersWasFound(String numberOfAnserws);
+        void setRecycler(List<Items> items);
     }
 
     interface Presenter{

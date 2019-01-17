@@ -74,6 +74,23 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
             ButterKnife.bind(this,itemView);
         }
 
+        void setBookNameText(Items item){
+            if(item.volumeInfo.authors != null) {
+                bookName.setText(item.volumeInfo.title + "\nAuthor(s): " + getAllAuthors(item.volumeInfo.getAuthors()));
+            }
+            else {
+                bookName.setText(item.volumeInfo.title);
+            }
+        }
+
+        String getAllAuthors(List<String> authors){
+            String allAuthors="";
+                for(int i=0; i<=authors.size()-1;i++){
+                   allAuthors = allAuthors +", "+ authors.get(i);
+                }
+                return allAuthors;
+        }
+
         void setup(Items item){
             if(item.volumeInfo.imageLinks == null){
                 bookImage.setImageResource(R.mipmap.detective_search);
@@ -99,11 +116,13 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
                 ;
             }
 
-            bookDescription.setText(item.volumeInfo.description);
-            bookName.setText(item.volumeInfo.title + item.volumeInfo.authors.get(0));
+            bookDescription.setText(item.volumeInfo.getDescription());
+            setBookNameText(item);
+
 
 
         }
+
 
 
     }

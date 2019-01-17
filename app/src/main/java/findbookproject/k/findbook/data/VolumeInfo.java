@@ -9,9 +9,18 @@ import java.util.List;
 public class VolumeInfo {
 
 
+    public ImageLinks getImageLinks() {
+        return imageLinks;
+    }
+
     @SerializedName("title")
     @Expose
     public String title;
+
+    public List<String> getAuthors() {
+        return authors;
+    }
+
     @SerializedName("authors")
     @Expose
     public List<String> authors = null;
@@ -54,5 +63,12 @@ public class VolumeInfo {
     @SerializedName("canonicalVolumeLink")
     @Expose
     public String canonicalVolumeLink;
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Expose
+    public String description;
 
 }

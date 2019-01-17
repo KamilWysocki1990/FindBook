@@ -3,6 +3,7 @@ package findbookproject.k.findbook.findActivity;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import findbookproject.k.findbook.data.Items;
@@ -13,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FindActivityPresenter implements FindActivityContract.Presenter, LifecycleObserver {
 
-    private List<Items> items;
+    private List<Items> items=new ArrayList<>();
     private Api api;
     private FindActivityContract.View view;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -35,14 +36,19 @@ public class FindActivityPresenter implements FindActivityContract.Presenter, Li
             view.showTextAfterEditTextSearchIsEmpty();
         } else {
             searchEditText = "volumes?q=" + searchEditText;
-
+           // List<Items> items = new ArrayList<>();
             compositeDisposable.add(
                     api.getBook(searchEditText)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     books -> {
-                                        view.showHowManyAnserwsWasFound(String.valueOf(books.totalItems));
+                                       // view.showHowManyAnswersWasFound(String.valueOf(books.totalItems));
+                                     view.setRecycler(books.items);
+                                        },throwable -> {
+                                        //On Error
+                                    },()->{
+                                       // view.setRecycler(items);
                                     }
                             )
             );
