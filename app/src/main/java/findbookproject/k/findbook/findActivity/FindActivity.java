@@ -89,7 +89,6 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
     @Override
     public void setRecycler(List<Items> items) {
 
-
         adapter.updateBooks(items);
     }
 }

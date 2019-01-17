@@ -1,5 +1,6 @@
 package findbookproject.k.findbook.findActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -93,36 +94,47 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
         void setup(Items item){
             if(item.volumeInfo.imageLinks == null){
-                bookImage.setImageResource(R.mipmap.detective_search);
+                setImageWithoutApiResponse();
             } else {
-                Glide.with(itemView.getContext())
-                        .load(item.getVolumeInfo().getImageLinks().thumbnail)
-                        .listener(new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                Toast.makeText(itemView.getContext(), "failed", Toast.LENGTH_LONG).show();
-                                e.printStackTrace();
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                Toast.makeText(itemView.getContext(), "Load Complete", Toast.LENGTH_LONG).show();
-
-                                return false;
-                            }
-                        })
-                        .into(bookImage)
-                ;
+                setImageGlide(item);
             }
 
             bookDescription.setText(item.volumeInfo.getDescription());
             setBookNameText(item);
+        itemView.setOnClickListener(view -> {
+                    Intent intent = new Intent(itemView.getContext(), ChosenBookActivity.class);
+                    intent.putExtra(ChosenBookActivity.BOOK_ID_KEY,item.volumeInfo.language);
 
+                }
+            );
 
 
         }
 
+        private void setImageWithoutApiResponse() {
+            bookImage.setImageResource(R.mipmap.detective_search);
+        }
+
+        private void setImageGlide(Items item) {
+            Glide.with(itemView.getContext())
+                    .load(item.getVolumeInfo().getImageLinks().thumbnail)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            Toast.makeText(itemView.getContext(), "failed", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+
+                            return false;
+                        }
+
+                    })
+                    .into(bookImage);
+        }
 
 
     }
