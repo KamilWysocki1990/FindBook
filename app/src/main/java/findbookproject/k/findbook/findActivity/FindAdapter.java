@@ -1,7 +1,9 @@
 package findbookproject.k.findbook.findActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,13 +105,38 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
             bookDescription.setText(item.volumeInfo.getDescription());
             setBookNameText(item);
         itemView.setOnClickListener(view -> {
+
+
+
+                    Bundle selectedBookData = new Bundle();
+                    selectedBookData.putString("BookTitle",item.getVolumeInfo().getTitle());
+                    selectedBookData.putString("BookLanguage",item.getVolumeInfo().language);
+                    selectedBookData.putString("BookInfolink",item.getVolumeInfo().infoLink);
+                    selectedBookData.putString("BookWebReaderLink",item.getAccessInfo().getWebReaderLink());
+                    selectedBookData.putString("BookMaturity",item.getVolumeInfo().maturityRating);
+                    selectedBookData.putString("BookDownload",item.getAccessInfo().getPdf().getAcsTokenLink());
+                    selectedBookData.putString("BookBuyLink",item.saleInfo.getBuyLink());
+                    selectedBookData.putByteArray("BookImageArray",prepareBookImageToPass());
+
                     Intent intent = new Intent(itemView.getContext(), ChosenBookActivity.class);
-                    intent.putExtra(ChosenBookActivity.BOOK_ID_KEY,item.volumeInfo.language);
+                    intent.putExtras(selectedBookData);
+                    itemView.getContext().startActivity(intent);
 
                 }
             );
 
 
+        }
+
+        private byte[] prepareBookImageToPass() {
+            itemView.setDrawingCacheEnabled(true);
+            bookImage.buildDrawingCache();
+            Bitmap bookBitmap =bookImage.getDrawingCache();
+            itemView.setDrawingCacheEnabled(false);
+            ByteArrayOutputStream bs = new ByteArrayOutputStream();
+            bookBitmap.compress(Bitmap.CompressFormat.PNG, 100, bs);
+            byte[] bookByteArray = bs.toByteArray();
+            return bookByteArray;
         }
 
         private void setImageWithoutApiResponse() {

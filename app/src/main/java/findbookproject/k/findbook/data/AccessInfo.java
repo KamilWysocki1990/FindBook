@@ -23,9 +23,18 @@ public class AccessInfo {
     @SerializedName("epub")
     @Expose
     public Epub epub;
+
+    public Pdf getPdf() {
+        return pdf;
+    }
+
     @SerializedName("pdf")
     @Expose
     public Pdf pdf;
+
+    public String getWebReaderLink() {
+        return webReaderLink;
+    }
     @SerializedName("webReaderLink")
     @Expose
     public String webReaderLink;

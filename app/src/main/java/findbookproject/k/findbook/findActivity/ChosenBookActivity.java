@@ -9,11 +9,6 @@ import findbookproject.k.findbook.R;
 
 public class ChosenBookActivity extends AppCompatActivity {
 
-    public static final String BOOK_NAME_KEY = "Book Name key";
-    public static final String BOOK_LANGUAGE_KEY = "Book Name key";
-    public static final String BOOK_INFOLINK_KEY = "Book Name key";
-    public static final String BOOK_MATURITY_KEY = "Book Name key";
-    public static final String BOOK_NAME_KEY = "Book Name key";
 
 
 

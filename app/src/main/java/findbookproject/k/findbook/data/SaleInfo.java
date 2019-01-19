@@ -14,7 +14,33 @@ public class SaleInfo {
     @SerializedName("isEbook")
     @Expose
     public Boolean isEbook;
+    @SerializedName("listPrice")
+    @Expose
+    public ListPrice listPrice;
+    @SerializedName("retailPrice")
+    @Expose
+    public RetailPrice retailPrice;
+    @SerializedName("buyLink")
+    @Expose
+    public String buyLink;
 
+    public String getCountry() {
+        return country;
+    }
 
+    public String getSaleability() {
+        return saleability;
+    }
 
+    public ListPrice getListPrice() {
+        return listPrice;
+    }
+
+    public RetailPrice getRetailPrice() {
+        return retailPrice;
+    }
+
+    public String getBuyLink() {
+        return buyLink;
+    }
 }

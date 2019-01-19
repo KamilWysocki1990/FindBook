@@ -8,6 +8,11 @@ public class Pdf {
     @SerializedName("isAvailable")
     @Expose
     public Boolean isAvailable;
+
+    public String getAcsTokenLink() {
+        return acsTokenLink;
+    }
+
     @SerializedName("acsTokenLink")
     @Expose
     public String acsTokenLink;

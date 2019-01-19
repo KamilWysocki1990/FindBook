@@ -13,6 +13,22 @@ public class VolumeInfo {
         return imageLinks;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getMaturityRating() {
+        return maturityRating;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getInfoLink() {
+        return infoLink;
+    }
+
     @SerializedName("title")
     @Expose
     public String title;
