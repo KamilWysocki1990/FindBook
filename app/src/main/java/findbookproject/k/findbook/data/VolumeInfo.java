@@ -73,9 +73,11 @@ public class VolumeInfo {
     @SerializedName("previewLink")
     @Expose
     public String previewLink;
+
     @SerializedName("infoLink")
     @Expose
     public String infoLink;
+
     @SerializedName("canonicalVolumeLink")
     @Expose
     public String canonicalVolumeLink;

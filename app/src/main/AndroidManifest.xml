@@ -14,7 +14,7 @@
 
 
         <activity
-            android:name=".findActivity.FindActivity">
+            android:name=".activitys.findActivity.FindActivity">
 
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
         </intent-filter>
 
     </activity>
-        <activity android:name=".findActivity.ChosenBookActivity" />
+        <activity android:name=".activitys.chosenBookActivity.ChosenBookActivity" />
 
 
     </application>

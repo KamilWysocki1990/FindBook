@@ -1,4 +1,4 @@
-package findbookproject.k.findbook.findActivity;
+package findbookproject.k.findbook.activitys.findActivity;
 
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;

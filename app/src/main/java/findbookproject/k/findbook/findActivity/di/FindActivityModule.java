@@ -4,8 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import findbookproject.k.findbook.findActivity.FindActivityContract;
-import findbookproject.k.findbook.findActivity.FindActivityPresenter;
+import findbookproject.k.findbook.activitys.findActivity.FindActivityContract;
+import findbookproject.k.findbook.activitys.findActivity.FindActivityPresenter;
 import findbookproject.k.findbook.network.Api;
 
 @Module

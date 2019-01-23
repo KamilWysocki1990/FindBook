@@ -1,4 +1,4 @@
-package findbookproject.k.findbook.findActivity;
+package findbookproject.k.findbook.activitys.findActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,6 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import findbookproject.k.findbook.R;
+import findbookproject.k.findbook.activitys.chosenBookActivity.ChosenBookActivity;
 import findbookproject.k.findbook.data.Items;
 
 public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
@@ -81,6 +82,8 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
         void setBookNameText(Items item){
             if(item.volumeInfo.authors != null) {
                 bookName.setText(item.volumeInfo.title + "\nAuthor(s): " + getAllAuthors(item.volumeInfo.getAuthors()));
+                //  String book = String.format(R.string.bookName,item.volumeInfo.title,getAllAuthors(item.volumeInfo.getAuthors()))
+               //     bookName.setText((String.format(R.string.bookName),item.volumeInfo.title,getAllAuthors(item.volumeInfo.getAuthors()));
             }
             else {
                 bookName.setText(item.volumeInfo.title);
@@ -116,6 +119,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
                     selectedBookData.putString("BookMaturity",item.getVolumeInfo().maturityRating);
                     selectedBookData.putString("BookDownload",item.getAccessInfo().getPdf().getAcsTokenLink());
                     selectedBookData.putString("BookBuyLink",item.saleInfo.getBuyLink());
+                    selectedBookData.putString("BookDescription",item.volumeInfo.getDescription());
                     selectedBookData.putByteArray("BookImageArray",prepareBookImageToPass());
 
                     Intent intent = new Intent(itemView.getContext(), ChosenBookActivity.class);
