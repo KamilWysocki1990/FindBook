@@ -15,12 +15,16 @@ import org.w3c.dom.Text;
 
 import java.net.URL;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import findbookproject.k.findbook.FindBookApplication;
 import findbookproject.k.findbook.R;
+import findbookproject.k.findbook.activitys.chosenBookActivity.di.ChosenBookModule;
 
-public class ChosenBookActivity extends AppCompatActivity implements ChosenBookContract.View{
+public class ChosenBookActivity extends AppCompatActivity implements ChosenBookContract.View {
 
     @BindView(R.id.image_chosen_book)
     ImageView imageViewChosenBook;
@@ -37,9 +41,13 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     @BindView(R.id.book_maturity)
     TextView bookMaturity;
 
-    String urlInfoLink = "" ;
-    String urlWebReaderLink = "" ;
-    String urlDownloadLink = "";
+    @Inject
+    ChosenBookContract.Presenter presenter;
+
+
+   private String urlInfoLink = "";
+   private String urlWebReaderLink = "";
+   private String urlDownloadLink = "";
 
     private boolean checkingIfDataAreAvailable(Bundle bundleToCheck, String keyToGetData) {
         if (null != bundleToCheck.getString(keyToGetData)) {
@@ -54,82 +62,85 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choosen_book);
         ButterKnife.bind(this);
+        ((FindBookApplication) getApplication())
+                .getAppComponent()
+                .plus(new ChosenBookModule(this))
+                .inject(this);
 
 
         Bundle bookData = getIntent().getExtras();
+        presenter.getDataFromBundle(bookData);
 
-        if (checkingIfDataAreAvailable(bookData, "BookTitle")) {
-            bookName.setText(bookData.getString("BookTitle"));
-        } else {
-            bookName.setText(R.string.no_information);
-        }
-
-        if (checkingIfDataAreAvailable(bookData, "BookDescription")) {
-            bookDescription.setText(bookData.getString("BookDescription"));
-            bookDescription.setMovementMethod(new ScrollingMovementMethod());
-        } else {
-            bookDescription.setText(R.string.no_information);
-        }
-
-        if (checkingIfDataAreAvailable(bookData, "BookInfolink")) {
-            urlInfoLink =String.valueOf(bookData.get("BookInfolink"));
-        }
-
-
-        if (checkingIfDataAreAvailable(bookData, "BookMaturity")) {
-            bookMaturity.setText(bookData.getString("BookMaturity"));
-        } else {
-            bookMaturity.setText(R.string.no_information);
-        }
-
-        if (checkingIfDataAreAvailable(bookData, "BookLanguage")) {
-            bookLanguage.setText(bookData.getString("BookLanguage"));
-        } else {
-            bookLanguage.setText(R.string.no_information);
-        }
-
-
-
-
-        if (checkingIfDataAreAvailable(bookData, "BookWebReaderLink")) {
-            urlWebReaderLink =String.valueOf(bookData.get("BookWebReaderLink"));
-        }
-
-        if (checkingIfDataAreAvailable(bookData, "BookDownload")) {
-            urlDownloadLink =String.valueOf(bookData.get("BookDownload"));
-        }
-
-            bookData.getByteArray("BookImageArray");
-        byte[] image = bookData.getByteArray("BookImageArray");
-            Bitmap bitmapImage = BitmapFactory.decodeByteArray(image,0,image.length);
-            imageViewChosenBook.setImageBitmap(bitmapImage);
 
     }
 
-    private void setDataOnParticularView(){
-
-    }
 
     @OnClick(R.id.button_book_infoLink)
     public void goToInfolink() {
 
-        Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse( urlInfoLink ) );
-        startActivity( browse );
+        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(urlInfoLink));
+        startActivity(browse);
     }
 
     @OnClick(R.id.button_web_reader_link)
     public void goToWebReaderlink() {
 
-        Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse( urlWebReaderLink ) );
-        startActivity( browse );
+        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(urlWebReaderLink));
+        startActivity(browse);
     }
 
     @OnClick(R.id.button_book_download)
     public void goToDownloadLink() {
 
-        Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse( urlDownloadLink ) );
-        startActivity( browse );
+        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(urlDownloadLink));
+        startActivity(browse);
     }
 
+
+    @Override
+    public void displayTitle(String textForTitle) {
+        bookName.setText(textForTitle);
+    }
+
+    @Override
+    public void displayLanguage(String textForBookLanguage) {
+        bookLanguage.setText(textForBookLanguage);
+    }
+
+    @Override
+    public void displayInfoLink(String textForInfoLink) {
+        urlInfoLink = textForInfoLink;
+    }
+
+    @Override
+    public void displayWebReaderLink(String textForWebReaderLink) {
+        urlWebReaderLink = textForWebReaderLink;
+    }
+
+    @Override
+    public void displayBookMaturity(String textForBookMaturity) {
+        bookMaturity.setText(textForBookMaturity);
+    }
+
+    @Override
+    public void displayDownloadLink(String textForDownloadLink) {
+        urlDownloadLink = textForDownloadLink;
+    }
+
+    @Override
+    public void displayBuyLink(String textForBookBuyLink) {
+
+    }
+
+    @Override
+    public void displayBookDescription(String textForDescription) {
+        bookDescription.setMovementMethod(new ScrollingMovementMethod());
+        bookDescription.setText(textForDescription);
+    }
+
+    @Override
+    public void displayImageBook(Bitmap bitmapImage) {
+        imageViewChosenBook.setImageBitmap(bitmapImage);
+    }
 
 }

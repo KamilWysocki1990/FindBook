@@ -23,7 +23,7 @@ import butterknife.OnClick;
 import findbookproject.k.findbook.FindBookApplication;
 import findbookproject.k.findbook.R;
 import findbookproject.k.findbook.data.Items;
-import findbookproject.k.findbook.findActivity.di.FindActivityModule;
+import findbookproject.k.findbook.activitys.findActivity.di.FindActivityModule;
 
 public class FindActivity extends AppCompatActivity implements FindActivityContract.View {
 

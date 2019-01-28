@@ -1,4 +1,4 @@
-package findbookproject.k.findbook.findActivity.di;
+package findbookproject.k.findbook.activitys.findActivity.di;
 
 
 import javax.inject.Singleton;

@@ -121,6 +121,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
                     selectedBookData.putString("BookBuyLink",item.saleInfo.getBuyLink());
                     selectedBookData.putString("BookDescription",item.volumeInfo.getDescription());
                     selectedBookData.putByteArray("BookImageArray",prepareBookImageToPass());
+                    selectedBookData.putStringArray("KeyArray",createKeysArray());
 
                     Intent intent = new Intent(itemView.getContext(), ChosenBookActivity.class);
                     intent.putExtras(selectedBookData);
@@ -131,6 +132,19 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
 
         }
+        private String[] createKeysArray (){
+            String[] prepareArray= new String[9];
+            prepareArray[0]="BookTitle";
+            prepareArray[1]="BookLanguage";
+            prepareArray[2]="BookInfolink";
+            prepareArray[3]="BookWebReaderLink";
+            prepareArray[4]="BookMaturity";
+            prepareArray[5]="BookDownload";
+            prepareArray[6]="BookBuyLink";
+            prepareArray[7]="BookDescription";
+            return prepareArray;
+        }
+
 
         private byte[] prepareBookImageToPass() {
             itemView.setDrawingCacheEnabled(true);
