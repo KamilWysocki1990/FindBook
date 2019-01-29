@@ -77,6 +77,7 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
         String textForBookMaturity = "";
         if(keysToDatum !=null){
             textForBookMaturity =  bookDataToCheck.getString("BookMaturity");
+           textForBookMaturity =  textForBookMaturity.replace("_"," ");
         } else {
             textForBookMaturity = noInformationProvidedText;
         }

@@ -38,12 +38,13 @@
         android:id="@+id/book_name"
         android:layout_width="0dp"
         android:layout_height="22dp"
+        android:textStyle="bold|italic"
         android:layout_marginEnd="@dimen/standard_mar"
         android:layout_marginStart="@dimen/standard_mar"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="15dp"
         android:textAlignment="center"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -55,8 +56,9 @@
         android:id="@+id/book_language"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:layout_marginEnd="@dimen/standard_mar"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="@dimen/standard_mar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guidelineVertical"
         app:layout_constraintTop_toBottomOf="@id/book_name"
@@ -67,14 +69,18 @@
     <TextView
         android:id="@+id/book_language_heading"
         android:layout_width="0dp"
+        android:textStyle="bold|italic"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/standard_mar"
         android:layout_marginStart="@dimen/standard_mar"
-        android:textAlignment="textEnd"
+        android:layout_marginTop="@dimen/standard_mar"
+        android:textAlignment="viewEnd"
         android:text="@string/book_language"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/book_name"
+        app:layout_constraintBottom_toTopOf="@id/book_maturity_heading"
+
 
         />
 
@@ -82,24 +88,28 @@
         android:id="@+id/book_maturity"
         android:layout_width="0dp"
         android:layout_height="22dp"
+        android:textAlignment="viewStart"
+
         android:layout_marginEnd="@dimen/standard_mar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guidelineVertical"
         app:layout_constraintTop_toBottomOf="@id/book_language"
+        app:layout_constraintBottom_toBottomOf="@id/book_maturity_heading"
 
         />
 
     <TextView
-        android:id="@+id/book_maturityHeading"
+        android:id="@+id/book_maturity_heading"
         android:layout_width="0dp"
+        android:textStyle="bold|italic"
         android:layout_height="22dp"
         android:layout_marginEnd="@dimen/standard_mar"
         android:layout_marginStart="@dimen/standard_mar"
-        android:textAlignment="textEnd"
-        android:text= "@string/book_maturity"
+        android:text="@string/book_maturity"
+        android:textAlignment="viewEnd"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_language"
+        app:layout_constraintTop_toBottomOf="@id/book_language_heading"
 
         />
 
@@ -169,7 +179,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.2" />
 
 
 </android.support.constraint.ConstraintLayout>
