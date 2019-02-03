@@ -2,7 +2,6 @@ package findbookproject.k.findbook.activitys.chosenBookActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,19 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.net.URL;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import findbookproject.k.findbook.FindBookApplication;
 import findbookproject.k.findbook.R;
 import findbookproject.k.findbook.activitys.chosenBookActivity.di.ChosenBookModule;
+import findbookproject.k.findbook.activitys.chosenBookActivity.webView.WebViewForChosenBookLinks;
 
 public class ChosenBookActivity extends AppCompatActivity implements ChosenBookContract.View {
 
@@ -49,12 +43,7 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
    private String urlWebReaderLink = "";
    private String urlDownloadLink = "";
 
-    private boolean checkingIfDataAreAvailable(Bundle bundleToCheck, String keyToGetData) {
-        if (null != bundleToCheck.getString(keyToGetData)) {
-            return true;
-        } else
-            return false;
-    }
+
 
 
     @Override
@@ -78,22 +67,27 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     @OnClick(R.id.button_book_infoLink)
     public void goToInfolink() {
 
-        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(urlInfoLink));
-        startActivity(browse);
+        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
+        intentWebView.putExtra("webView",urlInfoLink);
+        startActivity(intentWebView);
     }
 
     @OnClick(R.id.button_web_reader_link)
     public void goToWebReaderlink() {
 
-        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(urlWebReaderLink));
-        startActivity(browse);
+
+        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
+        intentWebView.putExtra("webView",urlWebReaderLink);
+        startActivity(intentWebView);
+
     }
 
     @OnClick(R.id.button_book_download)
     public void goToDownloadLink() {
 
-        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(urlDownloadLink));
-        startActivity(browse);
+        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
+        intentWebView.putExtra("webView",urlDownloadLink);
+        startActivity(intentWebView);
     }
 
 
@@ -115,6 +109,8 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     @Override
     public void displayWebReaderLink(String textForWebReaderLink) {
         urlWebReaderLink = textForWebReaderLink;
+
+
     }
 
     @Override
