@@ -4,12 +4,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,21 +36,27 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     @BindView(R.id.book_description)
     TextView bookDescription;
 
+    @BindView(R.id.button_bottom_sheet_Buy)
+    Button ButtonBottomSheet;
+
     @BindView(R.id.book_language)
     TextView bookLanguage;
 
     @BindView(R.id.book_maturity)
     TextView bookMaturity;
 
+    @BindView(R.id.bottom_sheet)
+    LinearLayout layoutBottomSheet;
+
     @Inject
     ChosenBookContract.Presenter presenter;
 
 
-   private String urlInfoLink = "";
-   private String urlWebReaderLink = "";
-   private String urlDownloadLink = "";
+    private String urlInfoLink = "";
+    private String urlWebReaderLink = "";
+    private String urlDownloadLink = "";
 
-
+    BottomSheetBehavior sheetBehavior;
 
 
     @Override
@@ -56,9 +69,49 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
                 .plus(new ChosenBookModule(this))
                 .inject(this);
 
+        sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
 
         Bundle bookData = getIntent().getExtras();
         presenter.getDataFromBundle(bookData);
+
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+
+
+        });
+    }
+
+    @OnClick(R.id.button_bottom_sheet_Buy)
+    public void toggleButtonSheet() {
+
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
 
 
     }
@@ -68,7 +121,7 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     public void goToInfolink() {
 
         Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
-        intentWebView.putExtra("webView",urlInfoLink);
+        intentWebView.putExtra("webView", urlInfoLink);
         startActivity(intentWebView);
     }
 
@@ -77,7 +130,7 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
 
 
         Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
-        intentWebView.putExtra("webView",urlWebReaderLink);
+        intentWebView.putExtra("webView", urlWebReaderLink);
         startActivity(intentWebView);
 
     }
@@ -86,7 +139,7 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     public void goToDownloadLink() {
 
         Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
-        intentWebView.putExtra("webView",urlDownloadLink);
+        intentWebView.putExtra("webView", urlDownloadLink);
         startActivity(intentWebView);
     }
 

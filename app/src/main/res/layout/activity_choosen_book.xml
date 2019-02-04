@@ -1,185 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-    <ImageView
-        android:id="@+id/image_chosen_book"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/marginImageBook"
-        android:layout_marginStart="@dimen/standard_mar"
-        android:layout_marginTop="@dimen/marginImageBook"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal"
-        app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal2"
-        app:layout_constraintVertical_bias="1.0" />
+        >
 
-    <TextView
+        <ImageView
+            android:id="@+id/image_chosen_book"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/marginImageBook"
+            android:layout_marginStart="@dimen/standard_mar"
+            android:layout_marginTop="@dimen/marginImageBook"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal"
+            app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guidelineHorizontal2"
+            app:layout_constraintVertical_bias="1.0" />
 
-        android:id="@+id/book_description"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/marginImageBook"
-        android:layout_marginEnd="@dimen/standard_mar"
-        android:layout_marginStart="@dimen/standard_mar"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal" />
+        <TextView
 
-    <TextView
-        android:id="@+id/book_name"
-        android:layout_width="0dp"
-        android:layout_height="22dp"
-        android:textStyle="bold|italic"
-        android:layout_marginEnd="@dimen/standard_mar"
-        android:layout_marginStart="@dimen/standard_mar"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/book_description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/marginImageBook"
+            android:layout_marginEnd="@dimen/standard_mar"
+            android:layout_marginStart="@dimen/standard_mar"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guidelineHorizontal" />
 
-        />
+        <TextView
+            android:id="@+id/book_name"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="@dimen/standard_mar"
+            android:layout_marginStart="@dimen/standard_mar"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
 
-
-    <TextView
-        android:id="@+id/book_language"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_mar"
-        android:textAlignment="viewStart"
-        android:layout_marginTop="@dimen/standard_mar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guidelineVertical"
-        app:layout_constraintTop_toBottomOf="@id/book_name"
-
-        />
+            />
 
 
-    <TextView
-        android:id="@+id/book_language_heading"
-        android:layout_width="0dp"
-        android:textStyle="bold|italic"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_mar"
-        android:layout_marginStart="@dimen/standard_mar"
-        android:layout_marginTop="@dimen/standard_mar"
-        android:textAlignment="viewEnd"
-        android:text="@string/book_language"
-        app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_name"
-        app:layout_constraintBottom_toTopOf="@id/book_maturity_heading"
+        <TextView
+            android:id="@+id/book_language"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_mar"
+            android:layout_marginTop="@dimen/standard_mar"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@id/book_name"
+
+            />
 
 
-        />
-
-    <TextView
-        android:id="@+id/book_maturity"
-        android:layout_width="0dp"
-        android:layout_height="22dp"
-        android:textAlignment="viewStart"
-
-        android:layout_marginEnd="@dimen/standard_mar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guidelineVertical"
-        app:layout_constraintTop_toBottomOf="@id/book_language"
-        app:layout_constraintBottom_toBottomOf="@id/book_maturity_heading"
-
-        />
-
-    <TextView
-        android:id="@+id/book_maturity_heading"
-        android:layout_width="0dp"
-        android:textStyle="bold|italic"
-        android:layout_height="22dp"
-        android:layout_marginEnd="@dimen/standard_mar"
-        android:layout_marginStart="@dimen/standard_mar"
-        android:text="@string/book_maturity"
-        android:textAlignment="viewEnd"
-        app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_language_heading"
-
-        />
+        <TextView
+            android:id="@+id/book_language_heading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_mar"
+            android:layout_marginStart="@dimen/standard_mar"
+            android:layout_marginTop="@dimen/standard_mar"
+            android:text="@string/book_language"
+            android:textAlignment="viewEnd"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toTopOf="@id/book_maturity_heading"
+            app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/book_name"
 
 
-    <Button
-        android:id="@+id/button_book_infoLink"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_mar"
-        android:layout_marginStart="@dimen/standard_mar"
-        android:background="@drawable/buttons_chosen_book"
-        android:text="Go to InfoLink"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@id/button_web_reader_link"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guidelineVertical"
-        app:layout_constraintTop_toBottomOf="@id/book_maturity" />
+            />
+
+        <TextView
+            android:id="@+id/book_maturity"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="@dimen/standard_mar"
+
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toBottomOf="@id/book_maturity_heading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@id/book_language"
+
+            />
+
+        <TextView
+            android:id="@+id/book_maturity_heading"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="@dimen/standard_mar"
+            android:layout_marginStart="@dimen/standard_mar"
+            android:text="@string/book_maturity"
+            android:textAlignment="viewEnd"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/book_language_heading"
+
+            />
 
 
-    <Button
-        android:id="@+id/button_web_reader_link"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_mar"
-        android:layout_marginStart="@dimen/standard_mar"
-        android:text="Go to WebReader"
-        android:background="@drawable/buttons_chosen_book"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@id/button_book_download"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guidelineVertical"
-        app:layout_constraintTop_toBottomOf="@id/button_book_infoLink"
-
-        />
-
-    <Button
-        android:id="@+id/button_book_download"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_mar"
-        android:layout_marginStart="@dimen/standard_mar"
-        android:text="Download"
-        android:background="@drawable/buttons_chosen_book"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@id/book_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guidelineVertical"
-        app:layout_constraintTop_toBottomOf="@id/button_web_reader_link" />
+        <Button
+            android:id="@+id/button_book_infoLink"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/standard_mar"
+            android:layout_marginStart="@dimen/standard_mar"
+            android:background="@drawable/buttons_chosen_book"
+            android:text="Go to InfoLink"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@id/button_web_reader_link"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVertical"
+            app:layout_constraintTop_toTopOf="@id/image_chosen_book" />
 
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineVertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.40104166" />
+        <Button
+            android:id="@+id/button_web_reader_link"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/standard_mar"
+            android:layout_marginStart="@dimen/standard_mar"
+            android:background="@drawable/buttons_chosen_book"
+            android:text="Go to WebReader"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@id/button_book_download"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@id/button_book_infoLink"
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+            />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guidelineHorizontal2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        <Button
+            android:id="@+id/button_book_download"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/standard_mar"
+            android:layout_marginStart="@dimen/standard_mar"
+            android:background="@drawable/buttons_chosen_book"
+            android:text="Download"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@id/button_bottom_sheet_Buy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineVertical"
+            app:layout_constraintTop_toBottomOf="@id/button_web_reader_link" />
 
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/button_bottom_sheet_Buy"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/buttons_chosen_book"
+            android:text="Buy Book"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="@id/button_book_download"
+            app:layout_constraintStart_toStartOf="@id/button_book_download"
+            app:layout_constraintTop_toBottomOf="@id/button_book_download"
+            app:layout_constraintBottom_toBottomOf="@id/image_chosen_book"
+
+
+            />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.40104166" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineHorizontal2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <include layout ="@layout/bottom_sheet"/>
+
+
+</android.support.design.widget.CoordinatorLayout>

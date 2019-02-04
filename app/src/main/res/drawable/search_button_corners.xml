@@ -11,4 +11,15 @@
         android:width="2dp"
         android:color="@color/black" />
 
+
+    <gradient
+        android:angle="45"
+        android:centerX="35%"
+        android:centerColor="#1E83A8"
+        android:startColor="#E8E8E8"
+        android:endColor="#2f2a2a"
+        android:type="linear"
+        />
+
+
 </shape>
