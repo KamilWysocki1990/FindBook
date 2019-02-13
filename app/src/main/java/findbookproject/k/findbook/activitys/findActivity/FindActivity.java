@@ -36,9 +36,6 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
     @BindView(R.id.searchEditText)
     EditText searchEditText;
 
-    @BindView(R.id.textForShow)
-    TextView textView;
-
     @BindView (R.id.search_button)
     Button searchButton;
 
@@ -67,6 +64,7 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
 
     }
 
+
     @OnClick(R.id.search_button)
     public void onSearchClick() {
        final Animation animButton = AnimationUtils.loadAnimation(this,R.anim.bounce);
@@ -78,12 +76,7 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
 
     @Override
     public void showTextAfterEditTextSearchIsEmpty() {
-        Toast.makeText(this, "Sorry:(, couldn't found what to search :(", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showHowManyAnswersWasFound(String numberOfAnswers) {
-        textView.setText(numberOfAnswers);
+        Toast.makeText(this, R.string.text_for_empty_edit_text_search, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -91,3 +84,5 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
         adapter.updateBooks(items);
     }
 }
+
+

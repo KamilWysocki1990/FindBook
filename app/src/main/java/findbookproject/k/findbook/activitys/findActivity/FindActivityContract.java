@@ -8,7 +8,6 @@ public interface FindActivityContract {
 
     interface View{
          void showTextAfterEditTextSearchIsEmpty();
-         void showHowManyAnswersWasFound(String numberOfAnserws);
         void setRecycler(List<Items> items);
     }
 

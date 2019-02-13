@@ -2,12 +2,14 @@ package findbookproject.k.findbook.activitys.findActivity;
 
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import findbookproject.k.findbook.data.Items;
 import findbookproject.k.findbook.network.Api;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -28,6 +30,8 @@ public class FindActivityPresenter implements FindActivityContract.Presenter, Li
     }
 
 
+
+
     @Override
     public void searchForTextOrBook(String searchEditText) {
 
@@ -43,7 +47,6 @@ public class FindActivityPresenter implements FindActivityContract.Presenter, Li
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     books -> {
-                                       // view.showHowManyAnswersWasFound(String.valueOf(books.totalItems));
                                      view.setRecycler(books.items);
                                         },throwable -> {
                                         //On Error

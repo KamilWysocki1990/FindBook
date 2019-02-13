@@ -25,11 +25,29 @@ public interface ChosenBookContract {
         void displayBookDescription(String textForDescription);
 
         void displayImageBook(Bitmap bitmapImage);
+
+        void displayPriceListBook(String textForPriceList);
+
+        void displayPriceRetailBook(String textForPriceRetailList);
+
+        void webViewForReaderLink(String urlLink);
+
+        void webViewForInfoLink(String urlLink);
+
+        void webViewForDownloadLink(String urlLink);
+
+        void showToastErrorForButtons(String errorText);
+
+        void webViewForBuyLink(String urlLink);
     }
      interface Presenter{
 
          void getDataFromBundle(Bundle bundle);
 
-    }
+         void checkIfWebReaderLinkIsCorrect(String urlWebReaderLink);
+         void checkIfDownloadLinkIsCorrect(String urlLink);
+         void checkIfInfoLinkIsCorrect(String urlLink);
+         void checkIfBuyLinkIsCorrect(String urlLink);
+     }
 
 }

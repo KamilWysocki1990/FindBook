@@ -6,5 +6,7 @@
     <color name="colorEditTextSearch">#e4e0cc</color>
     <color name="black">#2a2929</color>
     <color name="white">#ffffff</color>
+    <color name="lightSkin">#edece7</color>
+
 
 </resources>

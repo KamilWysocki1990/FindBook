@@ -5,10 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginStart="@dimen/standard_mar"
-    android:layout_marginEnd="@dimen/standard_mar"
-    android:layout_marginTop="@dimen/standard_mar"
-    android:layout_marginBottom="@dimen/standard_mar"
+    android:background="@color/lightSkin"
 
     >
 
@@ -19,12 +16,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchEditText" />
+        app:layout_constraintTop_toBottomOf="@id/searchEditText"
+        android:layout_marginStart="@dimen/standard_mar"
+        android:layout_marginEnd="@dimen/standard_mar"
+        android:layout_marginTop="@dimen/standard_mar"
+        android:layout_marginBottom="@dimen/standard_mar"
+
+        />
 
 
 
 
     <EditText
+        android:layout_marginStart="@dimen/standard_mar"
+        android:layout_marginEnd="@dimen/standard_mar"
+        android:layout_marginTop="@dimen/standard_mar"
+        android:layout_marginBottom="@dimen/standard_mar"
 
         android:id="@+id/searchEditText"
         android:textAlignment="center"
@@ -41,6 +48,11 @@
       />
 
     <Button
+        android:layout_marginStart="@dimen/standard_mar"
+        android:layout_marginEnd="@dimen/standard_mar"
+        android:layout_marginTop="@dimen/standard_mar"
+        android:layout_marginBottom="@dimen/standard_mar"
+
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,16 +73,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
 
-    <TextView
-        android:id="@+id/textForShow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        />
 
 
 </android.support.constraint.ConstraintLayout>

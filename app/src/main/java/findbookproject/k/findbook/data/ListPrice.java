@@ -14,6 +14,7 @@ public class ListPrice {
     public String currencyCode;
 
     public Double getAmount() {
+
         return amount;
     }
 

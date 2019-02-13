@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import findbookproject.k.findbook.R;
 import findbookproject.k.findbook.activitys.chosenBookActivity.ChosenBookActivity;
 import findbookproject.k.findbook.data.Items;
+import findbookproject.k.findbook.data.SaleInfo;
 
 public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
@@ -109,20 +110,8 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
             setBookNameText(item);
         itemView.setOnClickListener(view -> {
 
-
-
                     Bundle selectedBookData = new Bundle();
-                    selectedBookData.putString("BookTitle",item.getVolumeInfo().getTitle());
-                    selectedBookData.putString("BookLanguage",item.getVolumeInfo().language);
-                    selectedBookData.putString("BookInfolink",item.getVolumeInfo().infoLink);
-                    selectedBookData.putString("BookWebReaderLink",item.getAccessInfo().getWebReaderLink());
-                    selectedBookData.putString("BookMaturity",item.getVolumeInfo().maturityRating);
-                    selectedBookData.putString("BookDownload",item.getAccessInfo().getPdf().getAcsTokenLink());
-                    selectedBookData.putString("BookBuyLink",item.saleInfo.getBuyLink());
-                    selectedBookData.putString("BookDescription",item.volumeInfo.getDescription());
-                    selectedBookData.putByteArray("BookImageArray",prepareBookImageToPass());
-                    selectedBookData.putStringArray("KeyArray",createKeysArray());
-
+                    setDataOfBook(item, selectedBookData);
                     Intent intent = new Intent(itemView.getContext(), ChosenBookActivity.class);
                     intent.putExtras(selectedBookData);
                     itemView.getContext().startActivity(intent);
@@ -132,8 +121,24 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
 
         }
+
+        private void setDataOfBook(Items item, Bundle selectedBookData) {
+            selectedBookData.putString("BookTitle",item.getVolumeInfo().getTitle());
+            selectedBookData.putString("BookLanguage",item.getVolumeInfo().language);
+            selectedBookData.putString("BookInfolink",item.getVolumeInfo().infoLink);
+            selectedBookData.putString("BookWebReaderLink",item.getAccessInfo().getWebReaderLink());
+            selectedBookData.putString("BookMaturity",item.getVolumeInfo().maturityRating);
+            selectedBookData.putString("BookDownload",item.getAccessInfo().getPdf().getAcsTokenLink());
+            selectedBookData.putString("BookDescription",item.volumeInfo.getDescription());
+            selectedBookData.putString("BookBuyLink", item.saleInfo.getBuyLink());
+            checkIfListPriceIsAvailable(item, selectedBookData);
+            checkIfRetailPriceIsAvailable(item, selectedBookData);
+            selectedBookData.putByteArray("BookImageArray",prepareBookImageToPass());
+            selectedBookData.putStringArray("KeyArray",createKeysArray());
+        }
+
         private String[] createKeysArray (){
-            String[] prepareArray= new String[9];
+            String[] prepareArray= new String[10];
             prepareArray[0]="BookTitle";
             prepareArray[1]="BookLanguage";
             prepareArray[2]="BookInfolink";
@@ -142,6 +147,9 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
             prepareArray[5]="BookDownload";
             prepareArray[6]="BookBuyLink";
             prepareArray[7]="BookDescription";
+            prepareArray[8]="listPriceAmountWithCurrencyCode";
+            prepareArray[9]="listPriceRetailAmountWithCurrencyCode";
+
             return prepareArray;
         }
 
@@ -182,6 +190,29 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
                     .into(bookImage);
         }
 
+        private void checkIfRetailPriceIsAvailable(Items item, Bundle selectedBookData) {
+            if(item.saleInfo.retailPrice==null) {
+                selectedBookData.putString("listPriceRetailAmountWithCurrencyCode", "Information not provided");
+
+            } else{
+                selectedBookData.putString("listPriceRetailAmountWithCurrencyCode", item.saleInfo.retailPrice.getAmount().toString() + " "
+                        + item.saleInfo.retailPrice.currencyCode);
+            }
+        }
+
+        private void checkIfListPriceIsAvailable(Items item, Bundle selectedBookData) {
+            if(item.saleInfo.listPrice ==null) {
+                selectedBookData.putString("listPriceAmountWithCurrencyCode", "Information not provided");
+            } else{
+                selectedBookData.putString("listPriceAmountWithCurrencyCode", String.valueOf(item.saleInfo.listPrice.getAmount().toString()) + " "
+                        + item.saleInfo.listPrice.currencyCode);
+            }
+        }
+
 
     }
+
+
+
+
 }

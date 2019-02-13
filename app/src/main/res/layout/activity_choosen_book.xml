@@ -7,8 +7,7 @@
     <android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        >
+        android:background="@color/lightSkin">
 
         <ImageView
             android:id="@+id/image_chosen_book"
@@ -125,7 +124,7 @@
             android:layout_marginEnd="@dimen/standard_mar"
             android:layout_marginStart="@dimen/standard_mar"
             android:background="@drawable/buttons_chosen_book"
-            android:text="Go to InfoLink"
+            android:text="@string/go_to_infolink"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@id/button_web_reader_link"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +139,7 @@
             android:layout_marginEnd="@dimen/standard_mar"
             android:layout_marginStart="@dimen/standard_mar"
             android:background="@drawable/buttons_chosen_book"
-            android:text="Go to WebReader"
+            android:text="@string/go_to_webreader"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@id/button_book_download"
             app:layout_constraintEnd_toEndOf="parent"
@@ -156,7 +155,7 @@
             android:layout_marginEnd="@dimen/standard_mar"
             android:layout_marginStart="@dimen/standard_mar"
             android:background="@drawable/buttons_chosen_book"
-            android:text="Download"
+            android:text="@string/download"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@id/button_bottom_sheet_Buy"
             app:layout_constraintEnd_toEndOf="parent"
@@ -169,7 +168,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/buttons_chosen_book"
-            android:text="Buy Book"
+            android:text="@string/buy_book_info"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="@id/button_book_download"
             app:layout_constraintStart_toStartOf="@id/button_book_download"

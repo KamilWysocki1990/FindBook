@@ -4,4 +4,9 @@
     <string name="no_information">Information not provided</string>
     <string name="book_language">Book Language :</string>
     <string name="book_maturity">Book Maturity  :</string>
+    <string name="buy_book_info">Buy Book Info</string>
+    <string name="download">Download</string>
+    <string name="go_to_webreader">Go to WebReader</string>
+    <string name="go_to_infolink">Go to InfoLink</string>
+    <string name="text_for_empty_edit_text_search">Sorry:(, couldn\'t found what to search :(</string>
 </resources>

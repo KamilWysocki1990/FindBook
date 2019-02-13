@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -48,6 +49,12 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     @BindView(R.id.bottom_sheet)
     LinearLayout layoutBottomSheet;
 
+    @BindView(R.id.valueBookPrizeNew)
+    TextView valueBookPrizeNew;
+
+    @BindView(R.id.valueBookPrizeRetail)
+    TextView valueBookPrizeRetail;
+
     @Inject
     ChosenBookContract.Presenter presenter;
 
@@ -55,7 +62,7 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     private String urlInfoLink = "";
     private String urlWebReaderLink = "";
     private String urlDownloadLink = "";
-
+    private String urlBuyBookLink = "";
     BottomSheetBehavior sheetBehavior;
 
 
@@ -120,27 +127,29 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     @OnClick(R.id.button_book_infoLink)
     public void goToInfolink() {
 
-        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
-        intentWebView.putExtra("webView", urlInfoLink);
-        startActivity(intentWebView);
+        presenter.checkIfInfoLinkIsCorrect(urlInfoLink);
     }
 
     @OnClick(R.id.button_web_reader_link)
-    public void goToWebReaderlink() {
+    public void goToWebReaderLink() {
 
+        presenter.checkIfWebReaderLinkIsCorrect(urlWebReaderLink);
 
-        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
-        intentWebView.putExtra("webView", urlWebReaderLink);
-        startActivity(intentWebView);
 
     }
 
     @OnClick(R.id.button_book_download)
     public void goToDownloadLink() {
 
-        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
-        intentWebView.putExtra("webView", urlDownloadLink);
-        startActivity(intentWebView);
+        presenter.checkIfDownloadLinkIsCorrect(urlDownloadLink);
+
+    }
+
+
+    @OnClick(R.id.button_book_buy)
+    public void goButtonBuyLink() {
+        presenter.checkIfBuyLinkIsCorrect(urlBuyBookLink);
+
     }
 
 
@@ -178,7 +187,7 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
 
     @Override
     public void displayBuyLink(String textForBookBuyLink) {
-
+        urlBuyBookLink=textForBookBuyLink;
     }
 
     @Override
@@ -190,6 +199,50 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
     @Override
     public void displayImageBook(Bitmap bitmapImage) {
         imageViewChosenBook.setImageBitmap(bitmapImage);
+    }
+
+    @Override
+    public void displayPriceListBook(String textForPriceList) {
+        valueBookPrizeNew.setText(textForPriceList);
+    }
+
+    @Override
+    public void displayPriceRetailBook(String textForPriceRetailList) {
+        valueBookPrizeRetail.setText(textForPriceRetailList);
+    }
+
+    @Override
+    public void webViewForReaderLink(String urlLink) {
+        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
+        intentWebView.putExtra("webView", urlLink);
+        startActivity(intentWebView);
+    }
+
+    @Override
+    public void webViewForInfoLink(String urlLink) {
+
+        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
+        intentWebView.putExtra("webView", urlLink);
+        startActivity(intentWebView);
+    }
+
+    @Override
+    public void webViewForDownloadLink(String urlLink) {
+        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
+        intentWebView.putExtra("webView", urlLink);
+        startActivity(intentWebView);
+    }
+
+    @Override
+    public void showToastErrorForButtons(String errorText) {
+        Toast.makeText(getBaseContext(),errorText,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void webViewForBuyLink(String urlLink) {
+        Intent intentWebView = new Intent(this, WebViewForChosenBookLinks.class);
+        intentWebView.putExtra("webView", urlLink);
+        startActivity(intentWebView);
     }
 
 }

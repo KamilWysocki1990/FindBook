@@ -10,6 +10,8 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
 
     private ChosenBookContract.View view;
     private String noInformationProvidedText="Information not provided";
+    private String errorText = "Unfortunately, this option for this book is not available";
+
 
     public ChosenBookPresenter(ChosenBookContract.View view) {
         this.view = view;
@@ -22,21 +24,67 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
 
        String [] keysToData = bookDataToCheck.getStringArray("KeyArray");
 
-        passTitleToView(bookDataToCheck, keysToData[0]);
-        passLanguageToView(bookDataToCheck, keysToData[1]);
-        passInfoLinkToView(bookDataToCheck, keysToData[2]);
-        passWebReaderLinkToView(bookDataToCheck, keysToData[3]);
-        passBookMaturityToView(bookDataToCheck, keysToData[4]);
-        passDownloadLinkToView(bookDataToCheck, keysToData[5]);
-        passBuyLinkToView(bookDataToCheck, keysToData[6]);
-        passBookDescriptionToView(bookDataToCheck, keysToData[7]);
-        passBookImageToView(bookDataToCheck);
 
 
 
-       }
+            passTitleToView(bookDataToCheck, keysToData[0]);
+            passLanguageToView(bookDataToCheck, keysToData[1]);
+            passInfoLinkToView(bookDataToCheck, keysToData[2]);
+            passWebReaderLinkToView(bookDataToCheck, keysToData[3]);
+            passBookMaturityToView(bookDataToCheck, keysToData[4]);
+            passDownloadLinkToView(bookDataToCheck, keysToData[5]);
+            passBuyLinkToView(bookDataToCheck, keysToData[6]);
+            passBookDescriptionToView(bookDataToCheck, keysToData[7]);
+            passBookImageToView(bookDataToCheck);
+            passPriceInfoToView(bookDataToCheck, keysToData[8]);
+            passPriceRetailInfoToView(bookDataToCheck, keysToData[9]);
 
-       private void passBookImageToView(Bundle bookDataToCheck){
+
+
+
+    }
+
+    @Override
+    public void checkIfWebReaderLinkIsCorrect(String urlLink) {
+        if(urlLink.startsWith("http://")||urlLink.startsWith("https://"))
+        {
+            view.webViewForReaderLink(urlLink);
+        }
+        view.showToastErrorForButtons(errorText);
+    }
+    @Override
+    public void checkIfInfoLinkIsCorrect(String urlLink) {
+        if(urlLink.startsWith("http://")||urlLink.startsWith("https://"))
+        {
+            view.webViewForInfoLink(urlLink);
+        }
+        else{
+            view.showToastErrorForButtons(errorText);
+        }
+    }
+    @Override
+    public void checkIfDownloadLinkIsCorrect(String urlLink) {
+        if(urlLink.startsWith("http://")||urlLink.startsWith("https://"))
+        {
+            view.webViewForDownloadLink(urlLink);
+        }else{
+            view.showToastErrorForButtons(errorText);
+        }
+    }
+
+    @Override
+    public void checkIfBuyLinkIsCorrect(String urlLink) {
+        if(urlLink!=null) {
+            if (urlLink.startsWith("http://") || urlLink.startsWith("https://")) {
+                view.webViewForBuyLink(urlLink);
+            } else {
+                view.showToastErrorForButtons(errorText);
+            }
+        } else view.showToastErrorForButtons(errorText);
+    }
+
+
+    private void passBookImageToView(Bundle bookDataToCheck){
            bookDataToCheck.getByteArray("BookImageArray");
            byte[] image = bookDataToCheck.getByteArray("BookImageArray");
            Bitmap bitmapImage = BitmapFactory.decodeByteArray(image,0,image.length);
@@ -44,9 +92,9 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
        }
 
     private void passBookDescriptionToView(Bundle bookDataToCheck, String keysToDatum) {
-        String textForDescription = "";
-        if(keysToDatum !=null){
-            textForDescription =  bookDataToCheck.getString("BookDescription");
+        String textForDescription;
+        if(bookDataToCheck.get(keysToDatum)!=null){
+            textForDescription =  bookDataToCheck.getString(keysToDatum);
         } else {
             textForDescription = noInformationProvidedText;
         }
@@ -54,9 +102,9 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
     }
 
     private void passBuyLinkToView(Bundle bookDataToCheck, String keysToDatum) {
-        String textForBookBuyLink = "";
+        String textForBookBuyLink;
         if(keysToDatum !=null){
-            textForBookBuyLink =  bookDataToCheck.getString("BookBuyLink");
+            textForBookBuyLink =  bookDataToCheck.getString(keysToDatum);
         } else {
             textForBookBuyLink = noInformationProvidedText;
         }
@@ -64,19 +112,20 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
     }
 
     private void passDownloadLinkToView(Bundle bookDataToCheck, String keysToDatum) {
-        String textForDownloadLink = "";
+        String textForDownloadLink;
         if(keysToDatum !=null){
-            textForDownloadLink =  bookDataToCheck.getString("BookDownload");
+            textForDownloadLink =  bookDataToCheck.getString(keysToDatum);
         } else {
             textForDownloadLink = noInformationProvidedText;
         }
+
         view.displayDownloadLink(textForDownloadLink);
     }
 
     private void passBookMaturityToView(Bundle bookDataToCheck, String keysToDatum) {
-        String textForBookMaturity = "";
+        String textForBookMaturity;
         if(keysToDatum !=null){
-            textForBookMaturity =  bookDataToCheck.getString("BookMaturity");
+            textForBookMaturity =  bookDataToCheck.getString(keysToDatum);
            textForBookMaturity =  textForBookMaturity.replace("_"," ");
         } else {
             textForBookMaturity = noInformationProvidedText;
@@ -85,9 +134,9 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
     }
 
     private void passWebReaderLinkToView(Bundle bookDataToCheck, String keysToDatum) {
-        String textForWebReaderLink = "";
+        String textForWebReaderLink;
         if(keysToDatum !=null){
-            textForWebReaderLink =  bookDataToCheck.getString("BookWebReaderLink");
+            textForWebReaderLink =  bookDataToCheck.getString(keysToDatum);
         } else {
             textForWebReaderLink = noInformationProvidedText;
         }
@@ -95,9 +144,9 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
     }
 
     private void passInfoLinkToView(Bundle bookDataToCheck, String keysToDatum) {
-        String textForInfoLink = "";
+        String textForInfoLink;
         if(keysToDatum !=null){
-            textForInfoLink =  bookDataToCheck.getString("BookInfolink");
+            textForInfoLink =  bookDataToCheck.getString(keysToDatum);
         } else {
             textForInfoLink = noInformationProvidedText;
         }
@@ -105,9 +154,9 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
     }
 
     private void passLanguageToView(Bundle bookDataToCheck, String keysToDatum) {
-        String textForBookLanguage = "";
+        String textForBookLanguage;
         if(keysToDatum !=null){
-            textForBookLanguage =  bookDataToCheck.getString("BookLanguage");
+            textForBookLanguage =  bookDataToCheck.getString(keysToDatum);
         } else {
             textForBookLanguage = noInformationProvidedText;
         }
@@ -115,13 +164,37 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
     }
 
     private void passTitleToView(Bundle bookDataToCheck, String keysToDatum) {
-        String textForTitle = "";
+        String textForTitle;
         if(keysToDatum !=null){
-          textForTitle =  bookDataToCheck.getString("BookTitle");
+          textForTitle =  bookDataToCheck.getString(keysToDatum);
         } else {
             textForTitle = noInformationProvidedText;
         }
         view.displayTitle(textForTitle);
     }
+
+    private void passPriceInfoToView(Bundle bookDataToCheck,String keysToDatum){
+        String textForPriceList;
+        if(keysToDatum !=null){
+            textForPriceList =  bookDataToCheck.getString(keysToDatum);
+        } else {
+            textForPriceList = noInformationProvidedText;
+        }
+        view.displayPriceListBook(textForPriceList);
+    }
+
+    private void passPriceRetailInfoToView(Bundle bookDataToCheck,String keysToDatum){
+        String textForPriceRetailList;
+        if(keysToDatum !=null){
+            textForPriceRetailList =  bookDataToCheck.getString(keysToDatum);
+        } else {
+            textForPriceRetailList = noInformationProvidedText;
+        }
+        view.displayPriceRetailBook(textForPriceRetailList);
+    }
+
+
+
+
 
 }
