@@ -9,6 +9,7 @@ public interface FindActivityContract {
     interface View{
          void showTextAfterEditTextSearchIsEmpty();
         void setRecycler(List<Items> items);
+        void setRecyclerVisible();
     }
 
     interface Presenter{

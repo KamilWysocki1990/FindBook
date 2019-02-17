@@ -9,4 +9,7 @@
     <string name="go_to_webreader">Go to WebReader</string>
     <string name="go_to_infolink">Go to InfoLink</string>
     <string name="text_for_empty_edit_text_search">Sorry:(, couldn\'t found what to search :(</string>
+    <string name="type_book_text_or_authors">Type book, text or authors</string>
+    <string name="search">Search</string>
+    <string name="images_of_books">Images of books</string>
 </resources>

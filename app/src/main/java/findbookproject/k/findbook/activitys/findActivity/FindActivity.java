@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +26,18 @@ import findbookproject.k.findbook.FindBookApplication;
 import findbookproject.k.findbook.R;
 import findbookproject.k.findbook.data.Items;
 import findbookproject.k.findbook.activitys.findActivity.di.FindActivityModule;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+import uk.co.deanwild.materialshowcaseview.shape.RectangleShape;
+import uk.co.deanwild.materialshowcaseview.shape.Shape;
 
 public class FindActivity extends AppCompatActivity implements FindActivityContract.View {
 
     @Inject
     FindActivityContract.Presenter presenter;
+
+    @BindView(R.id.ImageCover)
+    ImageView imageViewCover;
 
     @BindView(R.id.book_recycler)
     RecyclerView bookRecycler;
@@ -52,6 +61,9 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
                 .plus(new FindActivityModule(this))
                 .inject(this);
 
+
+        createShowCase();
+
         adapter = new FindAdapter();
         bookRecycler.setLayoutManager(new LinearLayoutManager(this));
         RecyclerView.ItemDecoration itemDecoration = new
@@ -59,9 +71,23 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
         bookRecycler.addItemDecoration(itemDecoration);
         bookRecycler.setHasFixedSize(true);
         bookRecycler.setAdapter(adapter);
+        bookRecycler.setVisibility(View.INVISIBLE);
 
 
+    }
 
+    private void createShowCase() {
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(500); // half second between each showcase view
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "First");
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(searchEditText,
+                "Here u can type what u looking for ", "GOT IT");
+
+        sequence.addSequenceItem(searchButton,
+                "This is button for Search", "GOT IT");
+        sequence.start();
     }
 
 
@@ -70,6 +96,7 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
        final Animation animButton = AnimationUtils.loadAnimation(this,R.anim.bounce);
         searchButton.startAnimation(animButton);
         presenter.searchForTextOrBook(searchEditText.getText().toString());
+        searchEditText.clearFocus();
 
     }
 
@@ -82,6 +109,13 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
     @Override
     public void setRecycler(List<Items> items) {
         adapter.updateBooks(items);
+    }
+
+    @Override
+    public void setRecyclerVisible() {
+        imageViewCover.setVisibility(View.INVISIBLE);
+        bookRecycler.setVisibility(View.VISIBLE);
+
     }
 }
 

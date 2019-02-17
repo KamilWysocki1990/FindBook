@@ -61,4 +61,8 @@ dependencies {
     //CardView
     implementation 'com.android.support:cardview-v7:27.1.1'
 
+    //ShowCaseView
+    implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0@aar'
+
+
 }

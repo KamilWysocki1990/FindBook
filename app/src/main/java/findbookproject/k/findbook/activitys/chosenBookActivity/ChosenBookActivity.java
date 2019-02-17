@@ -25,6 +25,8 @@ import findbookproject.k.findbook.FindBookApplication;
 import findbookproject.k.findbook.R;
 import findbookproject.k.findbook.activitys.chosenBookActivity.di.ChosenBookModule;
 import findbookproject.k.findbook.activitys.chosenBookActivity.webView.WebViewForChosenBookLinks;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 public class ChosenBookActivity extends AppCompatActivity implements ChosenBookContract.View {
 
@@ -244,5 +246,8 @@ public class ChosenBookActivity extends AppCompatActivity implements ChosenBookC
         intentWebView.putExtra("webView", urlLink);
         startActivity(intentWebView);
     }
+
+
+
 
 }

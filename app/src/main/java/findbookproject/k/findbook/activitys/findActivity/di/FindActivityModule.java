@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import findbookproject.k.findbook.activitys.findActivity.FindActivityContract;
+import findbookproject.k.findbook.activitys.findActivity.FindActivityModel;
 import findbookproject.k.findbook.activitys.findActivity.FindActivityPresenter;
 import findbookproject.k.findbook.network.Api;
 
@@ -14,7 +15,9 @@ public class FindActivityModule {
     FindActivityContract.View view;
 
     public FindActivityModule(FindActivityContract.View view) {
+
         this.view = view;
+
     }
 
     @Provides
