@@ -33,6 +33,8 @@ import findbookproject.k.findbook.data.SaleInfo;
 
 public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
+
+    String partOfText="\nAuthor(s): ";
     private List<Items> books = new ArrayList<>();
 
     public void updateBooks(List<Items> bookList){
@@ -82,7 +84,8 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
         void setBookNameText(Items item){
             if(item.volumeInfo.authors != null) {
-                bookName.setText(item.volumeInfo.title + "\nAuthor(s): " + getAllAuthors(item.volumeInfo.getAuthors()));
+                String textForName =item.volumeInfo.title + partOfText + getAllAuthors(item.volumeInfo.getAuthors());
+                bookName.setText(textForName);
                 //  String book = String.format(R.string.bookName,item.volumeInfo.title,getAllAuthors(item.volumeInfo.getAuthors()))
                //     bookName.setText((String.format(R.string.bookName),item.volumeInfo.title,getAllAuthors(item.volumeInfo.getAuthors()));
             }
@@ -161,8 +164,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
             itemView.setDrawingCacheEnabled(false);
             ByteArrayOutputStream bs = new ByteArrayOutputStream();
             bookBitmap.compress(Bitmap.CompressFormat.PNG, 100, bs);
-            byte[] bookByteArray = bs.toByteArray();
-            return bookByteArray;
+            return bs.toByteArray();
         }
 
         private void setImageWithoutApiResponse() {

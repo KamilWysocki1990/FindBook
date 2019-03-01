@@ -26,7 +26,6 @@ public class FindBookApplication extends Application {
                 .appModule(new AppModule(this))
                 .dataModule(new DataModule())
                 .build();
-
     }
 
 

@@ -61,7 +61,7 @@ public class ChosenBookPresenter implements ChosenBookContract.Presenter, Lifecy
             }
 
         }
-        view.showToastErrorForButtons(errorText);
+       else view.showToastErrorForButtons(errorText);
 
 
     }

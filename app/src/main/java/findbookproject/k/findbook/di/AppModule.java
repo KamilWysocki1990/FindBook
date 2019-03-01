@@ -17,7 +17,6 @@ public AppModule(Context context){
 
 @Provides
 @ApplicationScope
-
     Context provideContext(){
     return context;
 }

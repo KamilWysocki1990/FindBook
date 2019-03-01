@@ -5,8 +5,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import findbookproject.k.findbook.activitys.findActivity.FindActivityContract;
-import findbookproject.k.findbook.activitys.findActivity.FindActivityModel;
+import findbookproject.k.findbook.activitys.findActivity.findActivityModel.FindActivityModel;
 import findbookproject.k.findbook.activitys.findActivity.FindActivityPresenter;
+import findbookproject.k.findbook.activitys.findActivity.findActivityModel.FindActivityModelHelper;
 import findbookproject.k.findbook.network.Api;
 
 @Module
@@ -23,7 +24,8 @@ public class FindActivityModule {
     @Provides
     @Singleton
     FindActivityContract.Presenter provideFindActivityPresenter(Api api) {
-        return new FindActivityPresenter(view, api) {
+        return new FindActivityPresenter(view,api) {
         };
     }
+
 }

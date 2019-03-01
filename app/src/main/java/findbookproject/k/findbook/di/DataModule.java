@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 import findbookproject.k.findbook.ApplicationScope;
+import findbookproject.k.findbook.activitys.findActivity.findActivityModel.FindActivityModel;
 import findbookproject.k.findbook.network.Api;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

@@ -115,8 +115,9 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
     public void setRecyclerVisible() {
         imageViewCover.setVisibility(View.INVISIBLE);
         bookRecycler.setVisibility(View.VISIBLE);
-
     }
+
+
 }
 
 
