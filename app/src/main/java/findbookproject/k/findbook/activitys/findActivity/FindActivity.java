@@ -12,7 +12,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -24,14 +23,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import findbookproject.k.findbook.FindBookApplication;
 import findbookproject.k.findbook.R;
-import findbookproject.k.findbook.data.Items;
+import findbookproject.k.findbook.data.watchedBook.WatchedBook;
+import findbookproject.k.findbook.data.bookInfo.Items;
 import findbookproject.k.findbook.activitys.findActivity.di.FindActivityModule;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
-import uk.co.deanwild.materialshowcaseview.shape.RectangleShape;
-import uk.co.deanwild.materialshowcaseview.shape.Shape;
 
-public class FindActivity extends AppCompatActivity implements FindActivityContract.View {
+public class FindActivity extends AppCompatActivity implements FindActivityContract.View,FindActivityContract.BookListener {
 
     @Inject
     FindActivityContract.Presenter presenter;
@@ -64,7 +62,7 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
 
         createShowCase();
 
-        adapter = new FindAdapter();
+        adapter = new FindAdapter(this);
         bookRecycler.setLayoutManager(new LinearLayoutManager(this));
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -118,6 +116,11 @@ public class FindActivity extends AppCompatActivity implements FindActivityContr
     }
 
 
+    @Override
+    public void passBookToDatabase(WatchedBook watchedBook) {
+        presenter.saveBookToDatabase(watchedBook);
+        Toast.makeText(this,"BookSaved",Toast.LENGTH_LONG).show();
+    }
 }
 
 

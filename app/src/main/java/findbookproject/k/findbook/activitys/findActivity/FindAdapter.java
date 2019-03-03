@@ -28,19 +28,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import findbookproject.k.findbook.R;
 import findbookproject.k.findbook.activitys.chosenBookActivity.ChosenBookActivity;
-import findbookproject.k.findbook.data.Items;
-import findbookproject.k.findbook.data.SaleInfo;
+import findbookproject.k.findbook.data.watchedBook.WatchedBook;
+import findbookproject.k.findbook.data.bookInfo.Items;
 
 public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
 
-
-    String partOfText="\nAuthor(s): ";
+    private FindActivityContract.BookListener bookListener;
     private List<Items> books = new ArrayList<>();
 
-    public void updateBooks(List<Items> bookList){
+    public FindAdapter(FindActivityContract.BookListener bookListener) {
+        this.bookListener = bookListener;
+    }
+
+    public void updateBooks(List<Items> bookList) {
         books.clear();
         books.addAll(bookList);
         notifyDataSetChanged();
+
+
     }
 
 
@@ -49,14 +54,14 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_anserw,parent,false)
+                        .inflate(R.layout.item_anserw, parent, false)
         );
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    holder.setup(books.get(position));
+        holder.setup(books.get(position), bookListener);
     }
 
 
@@ -66,7 +71,7 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item_book_image)
         ImageView bookImage;
@@ -77,81 +82,88 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
         @BindView(R.id.item_anserw_name)
         TextView bookName;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
 
-        void setBookNameText(Items item){
-            if(item.volumeInfo.authors != null) {
-                String textForName =item.volumeInfo.title + partOfText + getAllAuthors(item.volumeInfo.getAuthors());
+        void setBookNameText(Items item) {
+            if (item.getVolumeInfo().authors != null) {
+                String partOfText = "\nAuthor(s): ";
+                String textForName = item.getVolumeInfo().title + partOfText + getAllAuthors(item.getVolumeInfo().getAuthors());
                 bookName.setText(textForName);
                 //  String book = String.format(R.string.bookName,item.volumeInfo.title,getAllAuthors(item.volumeInfo.getAuthors()))
-               //     bookName.setText((String.format(R.string.bookName),item.volumeInfo.title,getAllAuthors(item.volumeInfo.getAuthors()));
-            }
-            else {
-                bookName.setText(item.volumeInfo.title);
+                //     bookName.setText((String.format(R.string.bookName),item.volumeInfo.title,getAllAuthors(item.volumeInfo.getAuthors()));
+            } else {
+                bookName.setText(item.getVolumeInfo().title);
             }
         }
 
-        String getAllAuthors(List<String> authors){
-            String allAuthors="";
-                for(int i=0; i<=authors.size()-1;i++){
-                   allAuthors = allAuthors +", "+ authors.get(i);
-                }
-                return allAuthors;
+        String getAllAuthors(List<String> authors) {
+            String allAuthors = "";
+            for (int i = 0; i <= authors.size() - 1; i++) {
+                allAuthors = allAuthors + ", " + authors.get(i);
+            }
+            return allAuthors;
         }
 
-        void setup(Items item){
-            if(item.volumeInfo.imageLinks == null){
+        void setup(Items item, FindActivityContract.BookListener bookListener) {
+            if (item.getVolumeInfo().imageLinks == null) {
                 setImageWithoutApiResponse();
             } else {
                 setImageGlide(item);
             }
 
-            bookDescription.setText(item.volumeInfo.getDescription());
+            bookDescription.setText(item.getVolumeInfo().getDescription());
             setBookNameText(item);
-        itemView.setOnClickListener(view -> {
+            itemView.setOnClickListener(view -> {
 
-                    Bundle selectedBookData = new Bundle();
-                    setDataOfBook(item, selectedBookData);
-                    Intent intent = new Intent(itemView.getContext(), ChosenBookActivity.class);
-                    intent.putExtras(selectedBookData);
-                    itemView.getContext().startActivity(intent);
+                        Bundle selectedBookData = new Bundle();
+                        setDataOfBook(item, selectedBookData);
+                        Intent intent = new Intent(itemView.getContext(), ChosenBookActivity.class);
+                        intent.putExtras(selectedBookData);
+                        WatchedBook watchedBook = new WatchedBook(item.getVolumeInfo().getTitle(), item.getVolumeInfo().language,
+                                item.getVolumeInfo().infoLink, item.getAccessInfo().getWebReaderLink(), item.getVolumeInfo().maturityRating,
+                                item.getAccessInfo().getPdf().getAcsTokenLink(), item.getVolumeInfo().getDescription(), item.getSaleInfo().getBuyLink(),
+                                selectedBookData.getString("listPriceAmountWithCurrencyCode"), selectedBookData.getString("listPriceRetailAmountWithCurrencyCode"),prepareBookImageToPassString());
+                        bookListener.passBookToDatabase(watchedBook);
 
-                }
+                        itemView.getContext().startActivity(intent);
+
+                    }
             );
 
 
         }
 
         private void setDataOfBook(Items item, Bundle selectedBookData) {
-            selectedBookData.putString("BookTitle",item.getVolumeInfo().getTitle());
-            selectedBookData.putString("BookLanguage",item.getVolumeInfo().language);
-            selectedBookData.putString("BookInfolink",item.getVolumeInfo().infoLink);
-            selectedBookData.putString("BookWebReaderLink",item.getAccessInfo().getWebReaderLink());
-            selectedBookData.putString("BookMaturity",item.getVolumeInfo().maturityRating);
-            selectedBookData.putString("BookDownload",item.getAccessInfo().getPdf().getAcsTokenLink());
-            selectedBookData.putString("BookDescription",item.volumeInfo.getDescription());
-            selectedBookData.putString("BookBuyLink", item.saleInfo.getBuyLink());
+            selectedBookData.putString("BookTitle", item.getVolumeInfo().getTitle());
+            selectedBookData.putString("BookLanguage", item.getVolumeInfo().language);
+            selectedBookData.putString("BookInfolink", item.getVolumeInfo().infoLink);
+            selectedBookData.putString("BookWebReaderLink", item.getAccessInfo().getWebReaderLink());
+            selectedBookData.putString("BookMaturity", item.getVolumeInfo().maturityRating);
+            selectedBookData.putString("BookDownload", item.getAccessInfo().getPdf().getAcsTokenLink());
+            selectedBookData.putString("BookDescription", item.getVolumeInfo().getDescription());
+            selectedBookData.putString("BookBuyLink", item.getSaleInfo().getBuyLink());
             checkIfListPriceIsAvailable(item, selectedBookData);
             checkIfRetailPriceIsAvailable(item, selectedBookData);
-            selectedBookData.putByteArray("BookImageArray",prepareBookImageToPass());
-            selectedBookData.putStringArray("KeyArray",createKeysArray());
+            selectedBookData.putByteArray("BookImageArray", prepareBookImageToPass());
+            selectedBookData.putStringArray("KeyArray", createKeysArray());
+
         }
 
-        private String[] createKeysArray (){
-            String[] prepareArray= new String[10];
-            prepareArray[0]="BookTitle";
-            prepareArray[1]="BookLanguage";
-            prepareArray[2]="BookInfolink";
-            prepareArray[3]="BookWebReaderLink";
-            prepareArray[4]="BookMaturity";
-            prepareArray[5]="BookDownload";
-            prepareArray[6]="BookBuyLink";
-            prepareArray[7]="BookDescription";
-            prepareArray[8]="listPriceAmountWithCurrencyCode";
-            prepareArray[9]="listPriceRetailAmountWithCurrencyCode";
+        private String[] createKeysArray() {
+            String[] prepareArray = new String[10];
+            prepareArray[0] = "BookTitle";
+            prepareArray[1] = "BookLanguage";
+            prepareArray[2] = "BookInfolink";
+            prepareArray[3] = "BookWebReaderLink";
+            prepareArray[4] = "BookMaturity";
+            prepareArray[5] = "BookDownload";
+            prepareArray[6] = "BookBuyLink";
+            prepareArray[7] = "BookDescription";
+            prepareArray[8] = "listPriceAmountWithCurrencyCode";
+            prepareArray[9] = "listPriceRetailAmountWithCurrencyCode";
 
             return prepareArray;
         }
@@ -160,11 +172,21 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
         private byte[] prepareBookImageToPass() {
             itemView.setDrawingCacheEnabled(true);
             bookImage.buildDrawingCache();
-            Bitmap bookBitmap =bookImage.getDrawingCache();
+            Bitmap bookBitmap = bookImage.getDrawingCache();
             itemView.setDrawingCacheEnabled(false);
             ByteArrayOutputStream bs = new ByteArrayOutputStream();
             bookBitmap.compress(Bitmap.CompressFormat.PNG, 100, bs);
             return bs.toByteArray();
+        }
+
+        private String prepareBookImageToPassString() {
+            itemView.setDrawingCacheEnabled(true);
+            bookImage.buildDrawingCache();
+            Bitmap bookBitmap = bookImage.getDrawingCache();
+            itemView.setDrawingCacheEnabled(false);
+            ByteArrayOutputStream bs = new ByteArrayOutputStream();
+            bookBitmap.compress(Bitmap.CompressFormat.PNG, 100, bs);
+            return bs.toString();
         }
 
         private void setImageWithoutApiResponse() {
@@ -193,28 +215,26 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.ViewHolder> {
         }
 
         private void checkIfRetailPriceIsAvailable(Items item, Bundle selectedBookData) {
-            if(item.saleInfo.retailPrice==null) {
+            if (item.getSaleInfo().retailPrice == null) {
                 selectedBookData.putString("listPriceRetailAmountWithCurrencyCode", "Information not provided");
 
-            } else{
-                selectedBookData.putString("listPriceRetailAmountWithCurrencyCode", item.saleInfo.retailPrice.getAmount().toString() + " "
-                        + item.saleInfo.retailPrice.currencyCode);
+            } else {
+                selectedBookData.putString("listPriceRetailAmountWithCurrencyCode", item.getSaleInfo().retailPrice.getAmount().toString() + " "
+                        + item.getSaleInfo().retailPrice.currencyCode);
             }
         }
 
         private void checkIfListPriceIsAvailable(Items item, Bundle selectedBookData) {
-            if(item.saleInfo.listPrice ==null) {
+            if (item.getSaleInfo().listPrice == null) {
                 selectedBookData.putString("listPriceAmountWithCurrencyCode", "Information not provided");
-            } else{
-                selectedBookData.putString("listPriceAmountWithCurrencyCode", String.valueOf(item.saleInfo.listPrice.getAmount().toString()) + " "
-                        + item.saleInfo.listPrice.currencyCode);
+            } else {
+                selectedBookData.putString("listPriceAmountWithCurrencyCode", String.valueOf(item.getSaleInfo().listPrice.getAmount().toString()) + " "
+                        + item.getSaleInfo().listPrice.currencyCode);
             }
         }
 
 
     }
-
-
 
 
 }

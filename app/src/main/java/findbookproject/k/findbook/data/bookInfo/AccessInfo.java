@@ -1,13 +1,18 @@
-package findbookproject.k.findbook.data;
+package findbookproject.k.findbook.data.bookInfo;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+@Entity
 public class AccessInfo {
-
+    @PrimaryKey
     @SerializedName("country")
+    @NonNull
     @Expose
-    public String country;
+    public String country="";
     @SerializedName("viewability")
     @Expose
     public String viewability;
@@ -20,6 +25,11 @@ public class AccessInfo {
     @SerializedName("textToSpeechPermission")
     @Expose
     public String textToSpeechPermission;
+
+    public Epub getEpub() {
+        return epub;
+    }
+
     @SerializedName("epub")
     @Expose
     public Epub epub;

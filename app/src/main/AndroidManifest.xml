@@ -24,6 +24,7 @@
     </activity>
         <activity android:name=".activitys.chosenBookActivity.ChosenBookActivity" />
         <activity android:name=".activitys.chosenBookActivity.webView.WebViewForChosenBookLinks" />
+        <activity android:name=".activitys.bookHistory.BookHistoryActivity" />
 
 
     </application>

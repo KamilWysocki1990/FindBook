@@ -1,6 +1,6 @@
 package findbookproject.k.findbook.network;
 
-import findbookproject.k.findbook.data.Answers;
+import findbookproject.k.findbook.data.bookInfo.Answers;
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Url;

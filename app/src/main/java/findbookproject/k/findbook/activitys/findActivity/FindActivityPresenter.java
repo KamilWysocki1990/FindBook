@@ -2,14 +2,13 @@ package findbookproject.k.findbook.activitys.findActivity;
 
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.LifecycleOwner;
-import android.os.Looper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import findbookproject.k.findbook.activitys.findActivity.findActivityModel.FindActivityModel;
-import findbookproject.k.findbook.activitys.findActivity.findActivityModel.FindActivityModelHelper;
-import findbookproject.k.findbook.data.Items;
+import findbookproject.k.findbook.data.watchedBook.WatchedBook;
+import findbookproject.k.findbook.data.bookInfo.Items;
+import findbookproject.k.findbook.data.dao.BookDaoInterface;
 import findbookproject.k.findbook.network.Api;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -21,11 +20,12 @@ public class FindActivityPresenter implements FindActivityContract.Presenter, Li
     private Api api;
     private FindActivityContract.View view;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private BookDaoInterface bookDaoInterface;
 
-
-    public FindActivityPresenter(FindActivityContract.View view, Api api) {
+    public FindActivityPresenter(FindActivityContract.View view, Api api, BookDaoInterface bookDaoInterface) {
         this.view = view;
         this.api = api;
+        this.bookDaoInterface = bookDaoInterface;
 
         ((LifecycleOwner) view).getLifecycle().addObserver(this);
 
@@ -42,6 +42,12 @@ public class FindActivityPresenter implements FindActivityContract.Presenter, Li
         }
 
 
+    }
+
+    @Override
+    public void saveBookToDatabase(WatchedBook watchedBook) {
+
+        bookDaoInterface.insert(watchedBook);
     }
 
     private void getDataFromModel(String request) {

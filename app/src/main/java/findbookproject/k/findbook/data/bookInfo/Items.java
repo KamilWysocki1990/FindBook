@@ -1,8 +1,8 @@
-package findbookproject.k.findbook.data;
+package findbookproject.k.findbook.data.bookInfo;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-//@SerializedName("items")
 public class Items {
 
 
@@ -34,26 +34,66 @@ public class Items {
         return accessInfo;
     }
 
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setEtag(String etag) {
+        this.etag = etag;
+    }
+
+    public void setSelfLink(String selfLink) {
+        this.selfLink = selfLink;
+    }
+
+    public void setVolumeInfo(VolumeInfo volumeInfo) {
+        this.volumeInfo = volumeInfo;
+    }
+
+    public void setSaleInfo(SaleInfo saleInfo) {
+        this.saleInfo = saleInfo;
+    }
+
+    public void setAccessInfo(AccessInfo accessInfo) {
+        this.accessInfo = accessInfo;
+    }
+
     @SerializedName("kind")
     @Expose
-    public String kind;
+    private String kind;
+
+
     @SerializedName("id")
     @Expose
-    public String id;
+    private String id;
+
+
     @SerializedName("etag")
     @Expose
-    public String etag;
+    private String etag;
+
+
     @SerializedName("selfLink")
     @Expose
-    public String selfLink;
+    private String selfLink;
+
+
     @SerializedName("volumeInfo")
     @Expose
-    public VolumeInfo volumeInfo;
+    private VolumeInfo volumeInfo;
+
+
     @SerializedName("saleInfo")
     @Expose
-    public SaleInfo saleInfo;
+    private SaleInfo saleInfo;
+
+
     @SerializedName("accessInfo")
     @Expose
-    public AccessInfo accessInfo;
+    private AccessInfo accessInfo;
 
 }

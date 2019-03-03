@@ -7,6 +7,7 @@ import findbookproject.k.findbook.di.AppComponent;
 import findbookproject.k.findbook.di.AppModule;
 import findbookproject.k.findbook.di.DaggerAppComponent;
 import findbookproject.k.findbook.di.DataModule;
+import findbookproject.k.findbook.room.WatchedBookDatabase;
 
 public class FindBookApplication extends Application {
 

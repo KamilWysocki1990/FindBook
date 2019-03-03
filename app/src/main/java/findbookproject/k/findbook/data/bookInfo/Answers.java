@@ -1,4 +1,4 @@
-package findbookproject.k.findbook.data;
+package findbookproject.k.findbook.data.bookInfo;
 
 import com.google.gson.annotations.SerializedName;
 

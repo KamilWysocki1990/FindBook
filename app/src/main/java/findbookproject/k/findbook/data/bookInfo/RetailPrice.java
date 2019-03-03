@@ -1,11 +1,9 @@
-package findbookproject.k.findbook.data;
+package findbookproject.k.findbook.data.bookInfo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ListPrice {
-
-
+public class RetailPrice {
     @SerializedName("amount")
     @Expose
     public Double amount;
@@ -14,7 +12,6 @@ public class ListPrice {
     public String currencyCode;
 
     public Double getAmount() {
-
         return amount;
     }
 
@@ -22,5 +19,3 @@ public class ListPrice {
         return currencyCode;
     }
 }
-
-
